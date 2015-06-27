@@ -374,6 +374,25 @@ private class ShowIntroductionSetting: Setting {
     }
 }
 
+// Opens the the SUMO page in a new tab
+private class OpenSupportPageSetting: Setting {
+    init() {
+        super.init(title: NSAttributedString(string: NSLocalizedString("Help", comment: "Show the SUMO support page from the Support section in the settings. see http://mzl.la/1dmM8tZ"), attributes: [NSForegroundColorAttributeName: UIConstants.TableViewRowTextColor]))
+    }
+
+    override func onClick(navigationController: UINavigationController?) {
+        navigationController?.dismissViewControllerAnimated(true, completion: {
+            if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+                appDelegate.browserViewController.dismissTabTrayController(animated: true) {
+                    if let url = NSURL(string: "https://support.mozilla.org/products/ios") {
+                        appDelegate.browserViewController.openURLInNewTab(url)
+                    }
+                }
+            }
+        })
+    }
+}
+
 class UseCompactTabLayoutSetting: Setting {
     let profile: Profile
 
@@ -515,7 +534,8 @@ class SettingsTableViewController: UITableViewController {
                 SearchSetting(settings: self)
             ]),
             SettingSection(title: NSAttributedString(string: NSLocalizedString("Support", comment: "Support section title")), children: [
-                ShowIntroductionSetting(settings: self)
+                ShowIntroductionSetting(settings: self),
+                OpenSupportPageSetting()
             ])
         ]
 
