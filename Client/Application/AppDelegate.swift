@@ -23,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let profile = getProfile(application)
 
+        let didCrash = FXCrashDetector.didWeCrash()
+
         // Set up a web server that serves us static content. Do this early so that it is ready when the UI is presented.
         setUpWebServer(profile)
 
@@ -205,7 +207,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
 }
 
 extension AppDelegate: UIApplicationDelegate {
@@ -227,3 +228,4 @@ extension AppDelegate: UIViewControllerRestoration {
         return nil
     }
 }
+
