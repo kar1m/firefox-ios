@@ -27,13 +27,13 @@ func makeLoginRecord(login: Login) -> Record<LoginPayload> {
     let id = login.guid
     let modified: Timestamp = 0    // Ignored in upload serialization.
     let sortindex = 1
-    let ttl = 0                    // TODO
+
     // TODO
     let json: JSON = JSON([
         "id": id,
         ])
     let payload = LoginPayload(json)
-    return Record<LoginPayload>(id: id, payload: payload, modified: modified, sortindex: sortindex, ttl: ttl)
+    return Record<LoginPayload>(id: id, payload: payload, modified: modified, sortindex: sortindex)
 }
 
 /**
